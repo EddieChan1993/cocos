@@ -23,29 +23,42 @@ cc.Class({
         password: {
             default: null,
             type: cc.EditBox
+        },
+        topTip: {
+            default: null,
+            type: cc.Label
         }
     },
 
     // LIFE-CYCLE CALLBACKS:
     onLoad() {
-        this.node.on('click', this.callback, this)
+        this.getTopTip();
     },
     callback: function (button) {
-        console.log(HOST_TEST + API_LOGIN);
         var host = HOST_TEST + API_LOGIN;
         var reqData = {
             "username": this.username.string,
             "password": this.password.string
         };
-        var dom = this;
         http.post(host, reqData, function (res) {
             if (res.error == Code.SUCCESS) {
-                AlertOK(dom, res.data);
+                AlertOK(this, res.data);
                 cc.director.loadScene('home')
+            } else {
+                AlertErr(this, res.data)
+            }
+        }.bind(this));
+    },
+    getTopTip() {
+        var host = HOST_TEST + GET_APPSN;
+        http.post(host, null, function (res) {
+            console.log(res);
+            if (res.error == Code.SUCCESS) {
+                this.topTip.string="AppSN:"+res.data
             } else {
                 AlertErr(dom, res.data)
             }
-        });
+        }.bind(this));
     },
     start() {
 
