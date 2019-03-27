@@ -1,12 +1,13 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "7f00fb3c-67c1-4052-a8f5-5f8166343f0d",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
-    "节点-会员分组": {
+    "users": {
       "ver": "1.0.3",
       "uuid": "f6b46edb-ccad-494f-859f-fc6257e7daf9",
       "rawTextureUuid": "7f00fb3c-67c1-4052-a8f5-5f8166343f0d",

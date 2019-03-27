@@ -1,12 +1,13 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.0",
   "uuid": "4bb979ef-9139-4d48-b057-810213ac3828",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
-    "举报": {
+    "jubao": {
       "ver": "1.0.3",
       "uuid": "6c3dc2a6-fdbe-4787-85d1-06522c87369a",
       "rawTextureUuid": "4bb979ef-9139-4d48-b057-810213ac3828",
