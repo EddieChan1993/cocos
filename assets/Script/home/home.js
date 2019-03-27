@@ -52,9 +52,9 @@ cc.Class({
                 this.topAdminName.string=res.data.login_name
                 this.topRole.string=this.roleType(res.data.role)
                 this.midModuleLabel[0].string="￥"+res.data.today_income
-                this.midModuleLabel[1].string="￥"+res.data.today_fans
+                this.midModuleLabel[1].string=res.data.today_fans
                 this.midModuleLabel[2].string="￥"+res.data.month_income
-                this.midModuleLabel[3].string="￥"+res.data.month_fans
+                this.midModuleLabel[3].string=res.data.month_fans
                 this.score[0].string=res.data.start_albums
                 this.score[1].string=res.data.tip_off_nums
             } else {
