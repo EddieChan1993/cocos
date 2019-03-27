@@ -6,7 +6,7 @@
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
   "subMetas": {
-    "资金流水": {
+    "money": {
       "ver": "1.0.3",
       "uuid": "2c5797c3-bb57-4ad7-87c6-43e41404f93c",
       "rawTextureUuid": "07ccb601-b291-4fb7-a63c-06ba367fa5d6",

@@ -3,3 +3,4 @@ window.HOST_PREV = "https://ikun01.dcwen.top/ikunpro/";
 
 window.API_LOGIN = "adminLogin";
 window.GET_APPSN = "getAppSn";
+window.API_HOME = "home";

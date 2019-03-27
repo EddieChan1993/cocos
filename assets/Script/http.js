@@ -3,8 +3,11 @@ window.Code = {
     ERROR: 1,
 };
 
+window.TokenAuth = "TOKEN_AUTH"
+window.TokenAuthHeader = "adminTokenKey"
+
 window.http = {
-    post: function (url, reqData, callback) {
+    post: function (url, reqData, isAuth, callback) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
@@ -16,8 +19,13 @@ window.http = {
                 }
             }
         };
+
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        if (isAuth) {
+            var token=cc.sys.localStorage.getItem(TokenAuth)
+            xhr.setRequestHeader(TokenAuthHeader, token);
+        }
         xhr.send(JSON.stringify(reqData));
     }
 };

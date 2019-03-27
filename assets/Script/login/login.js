@@ -32,6 +32,10 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
     onLoad() {
+        if (cc.sys.localStorage.getItem(TokenAuth)) {
+            cc.director.loadScene('home')
+            return;
+        }
         this.getTopTip();
     },
     callback: function (button) {
@@ -40,9 +44,10 @@ cc.Class({
             "username": this.username.string,
             "password": this.password.string
         };
-        http.post(host, reqData, function (res) {
+        http.post(host, reqData,false, function (res) {
             if (res.error == Code.SUCCESS) {
-                AlertOK(this, res.data);
+                AlertOK(this, "用户身份正确");
+                cc.sys.localStorage.setItem(TokenAuth, res.data)
                 cc.director.loadScene('home')
             } else {
                 AlertErr(this, res.data)
@@ -51,10 +56,10 @@ cc.Class({
     },
     getTopTip() {
         var host = HOST_TEST + GET_APPSN;
-        http.post(host, null, function (res) {
+        http.post(host, null, false,function (res) {
             console.log(res);
             if (res.error == Code.SUCCESS) {
-                this.topTip.string="AppSN:"+res.data
+                this.topTip.string = "AppSN:" + res.data
             } else {
                 AlertErr(dom, res.data)
             }
