@@ -1,11 +1,9 @@
+var homeBase = require("middle/home_base");
 cc.Class({
-    extends: cc.Component,
+    extends: homeBase,
 
     properties: {
-        labelDom: {
-            default: null,
-            type: cc.Label
-        },
+
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -22,20 +20,11 @@ cc.Class({
         //     }
         // },
     },
+
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad() {
-    // },
-    alertMsgOK(msg) {
-        this.labelDom.string = msg;
-    },
-    alertMsgErr(msg) {
-        this.node.color = cc.color(243, 12, 0, 210);
-        this.labelDom.string = msg;
-    },
-    alertMsgLoding(msg) {
-        this.node.color = cc.color(14, 12, 0, 210);
-        this.labelDom.string = "请求中...";
+    onLoad() {
+        this.initTopBanner("管理员列表")
     },
     start() {
 

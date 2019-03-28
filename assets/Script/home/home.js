@@ -1,5 +1,3 @@
-var api = require("common/api");
-var http = require("common/http");
 var homeMid = require("middle/home_base");
 
 cc.Class({
@@ -31,9 +29,9 @@ cc.Class({
         this.initData();
     },
     initData() {
-        var host = api.reqApiAll(api.home);
-        http.post(host, null, true, function (res) {
-            if (res.error == http.SUCCESS) {
+        var host = this.api.reqApiAll(this.api.home);
+        this.post(host, null, true, function (res) {
+            if (res.error == this.http.SUCCESS) {
                 this.topAppsn.string = "appSn\n" + res.data.app_sn
                 this.topAdminName.string = res.data.login_name
                 this.topRole.string = this.roleType(res.data.role)
@@ -44,7 +42,7 @@ cc.Class({
                 this.score[0].string = res.data.start_albums
                 this.score[1].string = res.data.tip_off_nums
             } else {
-                AlertErr(this, res.data);
+                this.alertErr(res.data);
             }
         }.bind(this));
     },
@@ -59,7 +57,7 @@ cc.Class({
         }
     },
     exit() {
-        cc.sys.localStorage.removeItem(http.tokenAuth);
+        cc.sys.localStorage.removeItem(this.http.tokenAuth);
         cc.director.loadScene('login');
     },
     start() {
