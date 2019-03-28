@@ -1,21 +1,11 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+var api = require("common/api");
+var http = require("common/http");
+var loginMid = require("middle/login_base");
 
 cc.Class({
-    extends: cc.Component,
+    extends: loginMid,
 
     properties: {
-        layAlert: {
-            default: null,
-            type: cc.Prefab
-        },
         username: {
             default: null,
             type: cc.EditBox
@@ -32,36 +22,31 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
     onLoad() {
-        if (cc.sys.localStorage.getItem(TokenAuth)) {
-            cc.director.loadScene('home')
-            return;
-        }
         this.getTopTip();
     },
     callback: function (button) {
-        var host = HOST_TEST + API_LOGIN;
+        var host = api.reqApiAll(api.adminLogin);
         var reqData = {
             "username": this.username.string,
             "password": this.password.string
         };
-        http.post(host, reqData,false, function (res) {
-            if (res.error == Code.SUCCESS) {
+        http.post(host, reqData, false, function (res) {
+            if (res.error == http.SUCCESS) {
                 AlertOK(this, "用户身份正确");
-                cc.sys.localStorage.setItem(TokenAuth, res.data)
+                cc.sys.localStorage.setItem(http.tokenAuth, res.data)
                 cc.director.loadScene('home')
             } else {
-                AlertErr(this, res.data)
+                this.aaa = this.alertErr(this, res.data);
             }
         }.bind(this));
     },
     getTopTip() {
-        var host = HOST_TEST + GET_APPSN;
-        http.post(host, null, false,function (res) {
-            console.log(res);
-            if (res.error == Code.SUCCESS) {
+        var host = api.reqApiAll(api.getAppSn);
+        http.post(host, null, false, function (res) {
+            if (res.error == http.SUCCESS) {
                 this.topTip.string = "AppSN:" + res.data
             } else {
-                AlertErr(dom, res.data)
+                this.alertErr(this, res.data)
             }
         }.bind(this));
     },

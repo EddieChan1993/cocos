@@ -1,12 +1,11 @@
-window.Code = {
+var httpAuthError = 401;
+module.exports = {
+    tokenAuth: "TOKEN_AUTH",
+    tokenAuthHeader: "adminTokenKey",
+
     SUCCESS: 0,
     ERROR: 1,
-};
 
-window.TokenAuth = "TOKEN_AUTH"
-window.TokenAuthHeader = "adminTokenKey"
-
-window.http = {
     post: function (url, reqData, isAuth, callback) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -14,8 +13,11 @@ window.http = {
                 var response = xhr.responseText;
                 if (response) {
                     var responseJson = JSON.parse(response);
-                    console.log(responseJson);
-                    callback(responseJson)
+                    if (responseJson.data == httpAuthError) {
+                        cc.director.loadScene('login');
+                    }else{
+                        callback(responseJson);
+                    }
                 }
             }
         };
@@ -23,8 +25,8 @@ window.http = {
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
         if (isAuth) {
-            var token=cc.sys.localStorage.getItem(TokenAuth)
-            xhr.setRequestHeader(TokenAuthHeader, token);
+            var token = cc.sys.localStorage.getItem(this.tokenAuth)
+            xhr.setRequestHeader(this.tokenAuthHeader, token);
         }
         xhr.send(JSON.stringify(reqData));
     }
