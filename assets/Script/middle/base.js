@@ -55,28 +55,28 @@ cc.Class({
     },
     post: function (url, reqData, isAuth, callback) {
         var xhr = new XMLHttpRequest();
-        var obj = this;
+        var self = this;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 var response = xhr.responseText;
                 if (response) {
                     var responseJson = JSON.parse(response);
-                    if (responseJson.code == obj.http.httpAuthError) {
+                    if (responseJson.code == self.http.httpAuthError) {
                         cc.director.loadScene('login');
                     } else {
                         callback(responseJson);
                     }
                 }
             } else {
-                obj.alertLoding()
+                self.alertLoding()
             }
         };
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        cc.log(isAuth)
+        cc.log(isAuth);
         if (isAuth) {
-            var token = cc.sys.localStorage.getItem(this.http.tokenAuth)
+            var token = cc.sys.localStorage.getItem(this.http.tokenAuth);
             xhr.setRequestHeader(this.http.tokenAuthHeader, token);
         }
         xhr.send(JSON.stringify(reqData));
